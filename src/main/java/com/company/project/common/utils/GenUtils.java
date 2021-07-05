@@ -1,8 +1,8 @@
 package com.company.project.common.utils;
 
 import com.company.project.common.exception.BusinessException;
-import com.company.project.entity.ColumnEntity;
-import com.company.project.entity.TableEntity;
+import com.company.project.web.entity.ColumnEntity;
+import com.company.project.web.entity.TableEntity;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -199,7 +199,7 @@ public class GenUtils {
         }
 
         if (template.contains("Dao.java.vm")) {
-            return packagePath + "mapper" + File.separator + className + "Mapper.java";
+            return packagePath + "web/mapper" + File.separator + className + "Mapper.java";
         }
 
         if (template.contains("Service.java.vm")) {
@@ -215,7 +215,7 @@ public class GenUtils {
         }
 
         if (template.contains("Dao.xml.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + className + "Mapper.xml";
+            return "main" + File.separator + "resources" + File.separator + "web/mapper" + File.separator + className + "Mapper.xml";
         }
 
         if (template.contains("menu.sql.vm")) {

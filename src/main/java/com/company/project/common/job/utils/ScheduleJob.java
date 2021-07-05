@@ -2,9 +2,9 @@ package com.company.project.common.job.utils;
 
 import com.company.project.common.utils.DataResult;
 import com.company.project.common.utils.SpringContextUtils;
-import com.company.project.entity.SysJobEntity;
-import com.company.project.entity.SysJobLogEntity;
-import com.company.project.service.SysJobLogService;
+import com.company.project.web.entity.SysJobEntity;
+import com.company.project.web.entity.SysJobLogEntity;
+import com.company.project.web.service.SysJobLogService;
 import org.apache.commons.lang.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
