@@ -84,6 +84,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/v2/api-docs", "anon");
         filterChainDefinitionMap.put("/v2/api-docs-ext", "anon");
+        // 获取验证码相关
+        filterChainDefinitionMap.put("/sso/getAuthCode", "anon");
+        filterChainDefinitionMap.put("/sso/verifyAuthCode", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");

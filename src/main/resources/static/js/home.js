@@ -299,7 +299,7 @@ function hide(){
 
     $('.layui-side cite').hide();
     $('.layui-side').animate({width:'55px'});
-    $('.layui-logo').html("SM")
+    $('.layui-logo').html("SP")
     $('.layui-logo').animate({width:'55px'});
     $('.layui-body').animate({left:'60px'});
     document.getElementById('hide').className="layui-color layui-icon layui-icon-spread-left";
@@ -311,7 +311,7 @@ function show(){
     $('.layui-side cite').show();
     $('.layui-side').animate({width:'200px'});
     $('.layui-body').animate({left:'200px'});
-    $('.layui-logo').html("Springboot-Manager")
+    $('.layui-logo').html("ServicePlatform")
     $('.layui-logo').animate({width:'200px'});
     document.getElementById('hide').className="layui-color layui-icon layui-icon-shrink-right";
     var id = $(".layui-tab-title li.layui-this").attr("lay-id");

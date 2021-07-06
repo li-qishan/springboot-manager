@@ -10,7 +10,7 @@ spring:
   resources:
     add-mappings: false
   application:
-    name: springboot-manager
+    name: ServicePlatform
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -26,10 +26,12 @@ spring:
         userToken: "user:token:"
         passwordError: "user:password:error:"
         permissionRefresh: "user:token:permissionRefresh:"
+        authCode: "portal:authCode:"
       expire:
         userToken: 604800 # 7天 7*24*3600
         passwordError: 3600 # 一个小时
         permissionRefresh: 604800 # 7天 7*24*3600
+        authCode: 120 # 验证码超期时间
     allowMultipleLogin: true # 允许多处登陆
 
 mybatis-plus:
