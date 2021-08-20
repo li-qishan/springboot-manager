@@ -59,6 +59,15 @@ public class UserController {
         return DataResult.success(userService.login(vo));
     }
 
+    @PostMapping(value = "/user/noCaptcha/login")
+    @ApiOperation(value = "用户登录接口") // @Valid
+    public DataResult noCaptchalogin() {
+        SysUser vo = new SysUser();
+        vo.setUsername("admin");
+        vo.setPassword("123456");
+        return DataResult.success(userService.login(vo));
+    }
+
     @PostMapping("/user/register")
     @ApiOperation(value = "用户注册接口")
     public DataResult register(@RequestBody @Valid SysUser vo) {

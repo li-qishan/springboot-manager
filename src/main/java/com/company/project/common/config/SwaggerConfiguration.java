@@ -31,8 +31,9 @@ public class SwaggerConfiguration {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+//                .enable(true)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.company.project.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.company.project.web.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

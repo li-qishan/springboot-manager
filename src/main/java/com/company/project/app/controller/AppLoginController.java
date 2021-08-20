@@ -22,7 +22,7 @@ public class AppLoginController {
     @ApiOperation("获取验证码")
     @RequestMapping(value = "/getAuthCode", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult getAuthCode(@PathVariable("mobile") String mobile) {
+    public CommonResult getAuthCode(@RequestParam String mobile) {
         return memberService.generateAuthCode(mobile);
     }
 

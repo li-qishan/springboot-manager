@@ -36,10 +36,10 @@ spring:
 
 file:
   #文件上传目录 绝对路径 末尾请加 /
-  path: F:/files/ #windows
+  path: D:/files/ #windows
   #path: /data/files/ #linux
   #文件预览、下载的url, 末尾请勿加 /
   url: http://localhost:8080/files
 
 knife4j:
-  production: true #生成环境禁用查看文档
+  production: false #生成环境禁用查看文档
