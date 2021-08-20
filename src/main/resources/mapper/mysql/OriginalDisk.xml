@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.mapper.OriginalDiskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.company.project.entity.OriginalDisk">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="type" property="type" />
+        <result column="contents" property="contents" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, contents
+    </sql>
+
+    <insert id="insrt" parameterType="com.company.project.entity.OriginalDisk">
+        INSERT INTO `information_collect_pro`.`4k_original_disk`( `title`, `type`, `contents`) VALUES ( #{title}, #{type}, #{contents});
+    </insert>
+
+</mapper>
