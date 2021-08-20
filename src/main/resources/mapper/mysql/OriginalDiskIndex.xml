@@ -20,7 +20,7 @@
         INSERT INTO `information_collect_pro`.`4k_original_disk_index`( `title`, `url`, `type`, `page`) VALUES ( #{title}, #{url}, #{type}, #{page});
     </insert>
     <select id="all" resultType ="com.company.project.entity.OriginalDiskIndex">
-        select * from `information_collect_pro`.`4k_original_disk_index` LIMIT 1 ,100
+        select * from `information_collect_pro`.`4k_original_disk_index`
     </select>
 
 </mapper>

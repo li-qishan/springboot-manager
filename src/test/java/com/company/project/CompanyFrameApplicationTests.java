@@ -115,6 +115,12 @@ public class CompanyFrameApplicationTests {
         try {
             //从数据库中获取素有 可用片名地址准备循环爬取
             List<OriginalDiskIndex> all = originalDiskIndexMapper.all();
+
+            int count = all.size();
+            int onePage = 30 ;
+            int pages = count % onePage + 1;
+
+
             all.forEach(s -> {
                 try {
                     Document doc = null;
