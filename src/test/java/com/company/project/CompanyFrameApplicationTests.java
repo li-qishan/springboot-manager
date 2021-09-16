@@ -35,35 +35,18 @@ public class CompanyFrameApplicationTests {
     public void contextLoads() {
     }
 
-    /**
-     * 爬取数据
-     *
-     * @throws Exception
-     */
-    @Test
-    public void CrawlIndexTest() throws Exception {
-        this.CrawlIndex();
-    }
-
-    @Test
-    public void CrawlDetailTest() throws Exception {
-        this.CrawlDetail();
-    }
-
-    /**
-     * 需手动修改
-     */
-    public static final String type = "4k电影原盘";
-
-
     public void CrawlIndex() {
         try {
             // 为每一页数据进行批量存储
             List<OriginalDiskIndex> data = new ArrayList<OriginalDiskIndex>();
-            for (int i = 3; i <= 32; i++) {
+            for (int i = 1; i <= 2; i++) {
                 log.info("----------------第 {} 页 获取开始-------------", i);
                 // 网页地址 https://www.bugutv.cn/4kmovie/page/3 因为要爬取分页信息，就通过循环重新加载网页来来实现，一般网页的分页URL都是有规律的，一般就是在后面的数字加1得到，所以利用这个规律来实现分页爬取数据的效果
-                String url = "https://www.bugutv.cn/4kmovie/page/" + i + "";
+                // 4k电影原盘 String url = "https://www.bugutv.cn/4kmovie/page/" + i + "";
+                // 最热影片 String url = "https://www.bugutv.cn/hotfilm";
+                // 4k演示片 String url = "https://www.bugutv.cn/4ktv";
+                // 音响测试片 String url = "https://www.bugutv.cn/audiotest";
+                String url = "https://www.bugutv.cn/4kdocu/page/" + i + "";
                 // 根据URL获取当前URL界面的doc对象，里面存储着界面的所有元素，类似于BOM
                 log.info("----------------正在获取页面全部元素-------------");
                 Document doc = Jsoup.connect(url).get();
@@ -111,46 +94,76 @@ public class CompanyFrameApplicationTests {
         }
     }
 
+    public static final String type = "4K纪录片";
+
     public void CrawlDetail() {
         try {
             //从数据库中获取素有 可用片名地址准备循环爬取
-            List<OriginalDiskIndex> all = originalDiskIndexMapper.all();
-
-            int count = all.size();
+            int total = originalDiskIndexMapper.count(type);
+            int count = total;
             int onePage = 30 ;
-            int pages = count % onePage + 1;
-
-
-            all.forEach(s -> {
-                try {
-                    Document doc = null;
-                    //originalDiskIndexMapper.insrt(s);
-                    //获取详情页数据
-                    String url = s.getUrl();
-                    // 根据URL获取当前URL界面的doc对象，里面存储着界面的所有元素，类似于BOM
-                    doc = Jsoup.connect(url).get();
-                    Thread.sleep(200);
-                    // 获取列表区域内容
-                    String title = doc.select("h1[class=entry-title]").first().text();
-                    Thread.sleep(200);
-                    String contents = doc.select("article[class=article-content]").first().toString();
-                    Thread.sleep(200);
-                    OriginalDisk originalDisk = new OriginalDisk();
-                    originalDisk.setTitle(title);
-                    originalDisk.setType(type);
-                    originalDisk.setContents(contents);
-                    originalDiskMapper.insrt(originalDisk);
-                    // 结束一页睡眠 5秒
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            int pages = count / onePage + 1;
+            log.info("----------------云端详情页数据获取共有 {} 条数据 正在准备获取 -------------", total);
+            for (int i = 1; i <= pages; i++) {
+                log.info("----------------第 {} 页 获取开始-------------", i);
+                int offset = (i-1)* onePage ; //分页偏移量
+                // 每页 30
+                List<OriginalDiskIndex> pageData = originalDiskIndexMapper.page(type,offset, onePage);
+                // 开始建立连接
+                //pageData.forEach(s -> {
+                //
+                //});
+                log.info("----------------正在准备建立连接-------------");
+                for (int j = 0; j < pageData.size(); j++) {
+                    try {
+                        log.info("---------------- 第 {} 页 第 {} 条记录 正在获取-------------", i,j+1);
+                        Document doc = null;
+                        //originalDiskIndexMapper.insrt(s);
+                        //获取详情页数据
+                        String url = pageData.get(j).getUrl();
+                        // 根据URL获取当前URL界面的doc对象，里面存储着界面的所有元素，类似于BOM
+                        doc = Jsoup.connect(url).get();
+                        Thread.sleep(100);
+                        // 获取列表区域内容
+                        String title = doc.select("h1[class=entry-title]").first().text();
+                        Thread.sleep(100);
+                        String contents = doc.select("article[class=article-content]").first().toString();
+                        Thread.sleep(100);
+                        OriginalDisk originalDisk = new OriginalDisk();
+                        originalDisk.setTitle(title);
+                        originalDisk.setType(type);
+                        originalDisk.setContents(contents);
+                        log.info("------------保存云端数据库开始------------------");
+                        originalDiskMapper.insrt(originalDisk);
+                        log.info("-------------保存云端数据库结束-------------------");
+                        log.info("---------------- 第 {} 页 第 {} 条记录 获取结束-------------", i,j+1);
+                        // 结束一条睡眠 5秒
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            });
+                log.info("----------------第 {} 页 获取结束 正在清理数据-------------", i);
+                // 一页结束休眠 8 秒
+                Thread.sleep(5000);
+            }
+            log.info("----------------云端详情页数据获取共有 {} 条数据 正在准备获取 -------------", total);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void CrawlIndexTest() throws Exception {
+            this.CrawlIndex();
+    }
+
+    @Test
+    public void CrawlDetailTest() throws Exception {
+            this.CrawlDetail();
+    }
+
 
 }

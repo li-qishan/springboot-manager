@@ -21,7 +21,7 @@ public class BaseEntity {
 
     @JSONField(serialize = false)
     @TableField(exist = false)
-    private int limit = 10;
+    private int limit = 100;
 
     /**
      * 数据权限：用户id

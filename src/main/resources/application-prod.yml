@@ -42,4 +42,4 @@ file:
   url: http://localhost:8080/files
 
 knife4j:
-  production: false #生成环境禁用查看文档
+  production: true #生成环境禁用查看文档

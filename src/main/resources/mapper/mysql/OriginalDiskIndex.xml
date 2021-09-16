@@ -23,4 +23,12 @@
         select * from `information_collect_pro`.`4k_original_disk_index`
     </select>
 
+    <select id="count" resultType ="integer">
+        select count(*) from `information_collect_pro`.`4k_original_disk_index` where type=#{type}
+    </select>
+
+    <select id="page" resultType ="com.company.project.entity.OriginalDiskIndex">
+        select * from `information_collect_pro`.`4k_original_disk_index` where type=#{type} limit #{offset},#{page}
+    </select>
+
 </mapper>

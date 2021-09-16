@@ -20,4 +20,8 @@ public interface OriginalDiskIndexMapper extends BaseMapper<OriginalDiskIndex> {
 
     public List<OriginalDiskIndex> all();
 
+    public List<OriginalDiskIndex> page(String type ,int offset,int page);
+
+    public int count(String type);
+
 }
